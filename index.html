@@ -1,41 +1,141 @@
-<!-- Enter your HTML code here -->
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Javascript Calculator</title>
-        <link rel="stylesheet" href="css/cal.css" type="text/css">
-    </head>
-    <body>
-        <div>
-        <div id="res"></div>
-        <div id='btns'>
-            <button class='allbtns' id='btnClr'>C</button>
-            <button class='allbtns' id='btnCut'>❎</button>
-            <button class='allbtns' id='btnOpen'>(</button>
-            <button class='allbtns' id='btnClose'>)</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scientific Calculator</title>
+    <link rel="icon" href="cal.png" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" type="text/css" href="css/cal.css">
+</head>
+<body>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td colspan="5">
+                    <textarea id="res"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">sin</button>
+                </td>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">cos</button>
+                </td>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">tan</button>
+                </td>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">(</button>
+                </td>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">)</button>
+                </td>
+            </tr>
+            <tr>
+                    <td>
+                        <button class="allbtn extra" onclick="sqrtExpr(this);">√X</button>
+                    </td>
+                    <td>
+                        <button class="allbtn highlight" onclick="clrExpr(this);">C</button>
+                    </td>
+                    <td>
+                        <button class="allbtn  highlight" onclick="cutExpr();">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                              <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+                            </svg>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="allbtn  highlight" onclick="changeExpr(this);">%</button>
+                    </td>
+                    <td>
+                        <button class="allbtn  highlight" onclick="changeExpr(this);">÷</button>
+                    </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">X!</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">7</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">8</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">9</button>
+                </td>
+                <td>
+                    <button class="allbtn  highlight" onclick="changeExpr(this);">*</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">1/X</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">4</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">5</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">6</button>
+                </td>
+                <td>
+                    <button class="allbtn  highlight" onclick="changeExpr(this);">−</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">π</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">1</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">2</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">3</button>
+                </td>
+                <td>
+                    <button class="allbtn  highlight" onclick="changeExpr(this);">+</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="expand" class="allbtn  highlight" onclick="Expand();">
+                        <svg id="expand-sign" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-angle-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M1.5 10.036a.5.5 0 0 1 .5.5v3.5h3.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z"/>
+                          <path fill-rule="evenodd" d="M6.354 9.646a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 0 1-.708-.708l4.5-4.5a.5.5 0 0 1 .708 0zm8.5-8.5a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 0 1-.708-.708l4.5-4.5a.5.5 0 0 1 .708 0z"/>
+                          <path fill-rule="evenodd" d="M10.036 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 1 1-1 0V2h-3.5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <svg id="mini-sign" class="extra" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-fullscreen-exit" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z"/>
+                        </svg>
+                    </button>
+                </td>
+                <td>
+                    <button class="allbtn extra" onclick="changeExpr(this);">e</button>
+                </td>
+                <td>
+                    <button class="allbtn" onclick="changeExpr(this);">0</button>
+                </td>
+                <td>
+                    <button class="allbtn  highlight" onclick="changeExpr(this);">.</button>
+                </td>
+                <td>
+                    <button id="eql" class="allbtn highlight" onclick="evalExpr();">=</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-            <button class='allbtns' id='btn9'>9</button>
-            <button class='allbtns' id='btn8'>8</button>
-            <button class='allbtns' id='btn7'>7</button>
-            <button class='allbtns' id='btnDiv'>/</button>
 
-            <button class='allbtns' id='btn6'>6</button>
-            <button class='allbtns' id='btn5'>5</button>
-            <button class='allbtns' id='btn4'>4</button>
-            <button class='allbtns' id='btnMul'>*</button>
-
-            <button class='allbtns' id='btn3'>3</button>
-            <button class='allbtns' id='btn2'>2</button>
-            <button class='allbtns' id='btn1'>1</button>
-            <button class='allbtns' id='btnSub'>-</button>
-
-            <button class='allbtns' id='btnDot'>.</button>
-            <button class='allbtns' id='btn0'>0</button>
-            <button class='allbtns' id='btnSum'>+</button>
-            <button class='allbtns' id='btnEql'>=</button>
-        </div>
-        </div>
-        <script src="js/cal.js" type="text/javascript"></script>
-    </body>
+    <script type="text/javascript" src="js/cal.js"></script>
+</body>
 </html>
